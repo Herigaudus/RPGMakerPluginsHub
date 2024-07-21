@@ -57,7 +57,7 @@
         <!-- Table Section -->
         <div class="w-3/4 p-6">
             <h1 class="text-2xl font-bold mb-6">Plugin Examples</h1>
-            <table class="min-w-full bg-white shadow-md rounded">
+            <table class="min-w-full bg-white shadow-md rounded mb-4">
                 <thead>
                     <tr>
                         <th class="py-2 px-4 border-b">Name</th>
@@ -81,6 +81,10 @@
                     </template>
                 </tbody>
             </table>
+            <!-- Load More Button -->
+            <button @click="loadMorePlugins()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Charger plus
+            </button>
         </div>
     </div>
 </body>
