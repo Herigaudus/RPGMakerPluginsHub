@@ -42,11 +42,14 @@
                 <!-- Version Filter -->
                 <div>
                     <label class="block font-medium mb-2">Filter by RPG Maker Version:</label>
-                    <select x-model="selectedVersion" class="border py-2 px-4 rounded">
-                        <option value="">All</option>
-                        <option value="MZ">MZ</option>
-                        <option value="MV">MV</option>
-                    </select>
+                    <div class="flex flex-wrap space-x-4">
+                        <template x-for="version in uniqueVersions" :key="version">
+                            <div>
+                                <input type="checkbox" :id="version" :value="version" x-model="selectedVersions" class="mr-2">
+                                <label :for="version" x-text="version"></label>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,7 +87,7 @@
                 plugins: [],
                 selectedCategories: [],
                 selectedPaid: '',
-                selectedVersion: '',
+                selectedVersions: [],
                 fetchPlugins() {
                     fetch('data/links.json')
                         .then(response => {
@@ -107,11 +110,18 @@
                     });
                     return Array.from(categories);
                 },
+                get uniqueVersions() {
+                    const versions = new Set();
+                    this.plugins.forEach(plugin => {
+                        versions.add(plugin.version);
+                    });
+                    return Array.from(versions);
+                },
                 get filteredPlugins() {
                     return this.plugins.filter(plugin => {
                         const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.every(category => plugin.categories.includes(category));
                         const matchesPaid = this.selectedPaid === '' || plugin.paid.toString() === this.selectedPaid;
-                        const matchesVersion = this.selectedVersion === '' || plugin.version === this.selectedVersion;
+                        const matchesVersion = this.selectedVersions.length === 0 || this.selectedVersions.includes(plugin.version);
                         return matchesCategory && matchesPaid && matchesVersion;
                     });
                 }
