@@ -7,6 +7,7 @@ document.addEventListener('alpine:init', () => {
         selectedVersions: [],
         currentIndex: 0,
         itemsPerPage: 10,
+        
         fetchPlugins() {
             fetch('data/links.json')
                 .then(response => {
@@ -16,18 +17,24 @@ document.addEventListener('alpine:init', () => {
                     return response.json();
                 })
                 .then(data => {
+                    console.log('Plugins fetched:', data); // Debugging line
                     this.plugins = data;
-                    this.loadMorePlugins();
+                    this.loadMorePlugins(); // Load initial set of plugins
                 })
                 .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
+                    console.error('Fetch error:', error);
                 });
         },
+        
         loadMorePlugins() {
-            const newPlugins = this.plugins.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
-            this.displayedPlugins = [...this.displayedPlugins, ...newPlugins];
-            this.currentIndex += this.itemsPerPage;
+            if (this.currentIndex < this.plugins.length) {
+                const newPlugins = this.plugins.slice(this.currentIndex, this.currentIndex + this.itemsPerPage);
+                this.displayedPlugins = [...this.displayedPlugins, ...newPlugins];
+                this.currentIndex += this.itemsPerPage;
+                console.log('Plugins displayed:', this.displayedPlugins); // Debugging line
+            }
         },
+        
         get uniqueCategories() {
             const categories = new Set();
             this.plugins.forEach(plugin => {
@@ -35,6 +42,7 @@ document.addEventListener('alpine:init', () => {
             });
             return Array.from(categories);
         },
+        
         get uniqueVersions() {
             const versions = new Set();
             this.plugins.forEach(plugin => {
@@ -42,6 +50,7 @@ document.addEventListener('alpine:init', () => {
             });
             return Array.from(versions);
         },
+        
         get filteredPlugins() {
             return this.displayedPlugins.filter(plugin => {
                 const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.every(category => plugin.categories.includes(category));
@@ -50,5 +59,5 @@ document.addEventListener('alpine:init', () => {
                 return matchesCategory && matchesPaid && matchesVersion;
             });
         }
-    }))
+    }));
 });
