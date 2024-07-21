@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Plugin Example 1",
+        "url": "https://example.com/plugin1",
+        "description" : "lorem ipsum",
+        "paid" : true,
+        "categories": ["Combat", "Interface"]
+    },
+    {
+        "name": "Plugin Example 2",
+        "url": "https://example.com/plugin2",
+        "description" : "lorem ipsum",
+        "paid" : true,
+        "categories": ["Interface", "Audio"]
+    }
+]

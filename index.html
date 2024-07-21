@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin Examples</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Alpine.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.5.1/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div x-data="pluginData" x-init="fetchPlugins()" class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Plugin Examples</h1>
+        <table class="min-w-full bg-white shadow-md rounded">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b">Name</th>
+                    <th class="py-2 px-4 border-b">URL</th>
+                    <th class="py-2 px-4 border-b">Description</th>
+                    <th class="py-2 px-4 border-b">Paid</th>
+                    <th class="py-2 px-4 border-b">Categories</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="plugin in plugins" :key="plugin.name">
+                    <tr>
+                        <td class="py-2 px-4 border-b" x-text="plugin.name"></td>
+                        <td class="py-2 px-4 border-b"><a :href="plugin.url" class="text-blue-500 underline" x-text="plugin.url"></a></td>
+                        <td class="py-2 px-4 border-b" x-text="plugin.description"></td>
+                        <td class="py-2 px-4 border-b" x-text="plugin.paid ? 'Yes' : 'No'"></td>
+                        <td class="py-2 px-4 border-b" x-text="plugin.categories.join(', ')"></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('pluginData', () => ({
+                plugins: [],
+                fetchPlugins() {
+                    fetch('data/links.json')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            this.plugins = data;
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with the fetch operation:', error);
+                        });
+                }
+            }))
+        })
+    </script>
+</body>
+</html>
