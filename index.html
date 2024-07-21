@@ -96,7 +96,7 @@
                 },
                 get filteredPlugins() {
                     return this.plugins.filter(plugin => {
-                        const matchesCategory = this.selectedCategories.length === 0 || plugin.categories.some(category => this.selectedCategories.includes(category));
+                        const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.every(category => plugin.categories.includes(category));
                         const matchesPaid = this.selectedPaid === '' || plugin.paid.toString() === this.selectedPaid;
                         return matchesCategory && matchesPaid;
                     });
