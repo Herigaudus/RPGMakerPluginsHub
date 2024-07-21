@@ -10,75 +10,76 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.5.1/dist/cdn.min.js" defer></script>
 </head>
 <body class="bg-gray-100 p-6">
-    <div x-data="pluginData" x-init="fetchPlugins()" class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-6">Plugin Examples</h1>
-        
+    <div x-data="pluginData" x-init="fetchPlugins()" class="container mx-auto flex">
         <!-- Filter Section -->
-        <div class="mb-6">
-            <div class="flex flex-col space-y-4">
-                <!-- Category Filter -->
-                <div>
-                    <label class="block font-medium mb-2">Filter by Categories:</label>
-                    <div class="flex flex-wrap space-x-4">
-                        <template x-for="category in uniqueCategories" :key="category">
-                            <div>
-                                <input type="checkbox" :id="category" :value="category" x-model="selectedCategories" class="mr-2">
-                                <label :for="category" x-text="category"></label>
-                            </div>
-                        </template>
-                    </div>
+        <div class="w-1/4 p-6 bg-white shadow-md rounded">
+            <h1 class="text-xl font-bold mb-6">Filters</h1>
+            
+            <!-- Category Filter -->
+            <div class="mb-6">
+                <label class="block font-medium mb-2">Filter by Categories:</label>
+                <div class="flex flex-wrap space-x-4">
+                    <template x-for="category in uniqueCategories" :key="category">
+                        <div>
+                            <input type="checkbox" :id="category" :value="category" x-model="selectedCategories" class="mr-2">
+                            <label :for="category" x-text="category"></label>
+                        </div>
+                    </template>
                 </div>
+            </div>
 
-                <!-- Paid Filter -->
-                <div>
-                    <label class="block font-medium mb-2">Filter by Paid Status:</label>
-                    <select x-model="selectedPaid" class="border py-2 px-4 rounded">
-                        <option value="">All</option>
-                        <option value="true">Paid</option>
-                        <option value="false">Not Paid</option>
-                    </select>
-                </div>
+            <!-- Paid Filter -->
+            <div class="mb-6">
+                <label class="block font-medium mb-2">Filter by Paid Status:</label>
+                <select x-model="selectedPaid" class="border py-2 px-4 rounded w-full">
+                    <option value="">All</option>
+                    <option value="true">Paid</option>
+                    <option value="false">Not Paid</option>
+                </select>
+            </div>
 
-                <!-- Version Filter -->
-                <div>
-                    <label class="block font-medium mb-2">Filter by RPG Maker Version:</label>
-                    <div class="flex flex-wrap space-x-4">
-                        <template x-for="version in uniqueVersions" :key="version">
-                            <div>
-                                <input type="checkbox" :id="version" :value="version" x-model="selectedVersions" class="mr-2">
-                                <label :for="version" x-text="version"></label>
-                            </div>
-                        </template>
-                    </div>
+            <!-- Version Filter -->
+            <div>
+                <label class="block font-medium mb-2">Filter by RPG Maker Version:</label>
+                <div class="flex flex-wrap space-x-4">
+                    <template x-for="version in uniqueVersions" :key="version">
+                        <div>
+                            <input type="checkbox" :id="version" :value="version" x-model="selectedVersions" class="mr-2">
+                            <label :for="version" x-text="version"></label>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
 
         <!-- Table Section -->
-        <table class="min-w-full bg-white shadow-md rounded">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b">Name</th>
-                    <th class="py-2 px-4 border-b">URL</th>
-                    <th class="py-2 px-4 border-b">Description</th>
-                    <th class="py-2 px-4 border-b">Paid</th>
-                    <th class="py-2 px-4 border-b">Categories</th>
-                    <th class="py-2 px-4 border-b">Version</th>
-                </tr>
-            </thead>
-            <tbody>
-                <template x-for="plugin in filteredPlugins" :key="plugin.name">
+        <div class="w-3/4 p-6">
+            <h1 class="text-2xl font-bold mb-6">Plugin Examples</h1>
+            <table class="min-w-full bg-white shadow-md rounded">
+                <thead>
                     <tr>
-                        <td class="py-2 px-4 border-b" x-text="plugin.name"></td>
-                        <td class="py-2 px-4 border-b"><a :href="plugin.url" class="text-blue-500 underline" x-text="plugin.url"></a></td>
-                        <td class="py-2 px-4 border-b" x-text="plugin.description"></td>
-                        <td class="py-2 px-4 border-b" x-text="plugin.paid ? 'Yes' : 'No'"></td>
-                        <td class="py-2 px-4 border-b" x-text="plugin.categories.join(', ')"></td>
-                        <td class="py-2 px-4 border-b" x-text="plugin.version"></td>
+                        <th class="py-2 px-4 border-b">Name</th>
+                        <th class="py-2 px-4 border-b">URL</th>
+                        <th class="py-2 px-4 border-b">Description</th>
+                        <th class="py-2 px-4 border-b">Paid</th>
+                        <th class="py-2 px-4 border-b">Categories</th>
+                        <th class="py-2 px-4 border-b">Version</th>
                     </tr>
-                </template>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <template x-for="plugin in filteredPlugins" :key="plugin.name">
+                        <tr>
+                            <td class="py-2 px-4 border-b" x-text="plugin.name"></td>
+                            <td class="py-2 px-4 border-b"><a :href="plugin.url" class="text-blue-500 underline" x-text="plugin.url"></a></td>
+                            <td class="py-2 px-4 border-b" x-text="plugin.description"></td>
+                            <td class="py-2 px-4 border-b" x-text="plugin.paid ? 'Yes' : 'No'"></td>
+                            <td class="py-2 px-4 border-b" x-text="plugin.categories.join(', ')"></td>
+                            <td class="py-2 px-4 border-b" x-text="plugin.version"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
