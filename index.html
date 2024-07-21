@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Alpine.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.5.1/dist/cdn.min.js" defer></script>
+    <!-- Custom JavaScript -->
+    <script src="js/app.js" defer></script>
 </head>
 <body class="bg-gray-100 p-6">
     <div x-data="pluginData" x-init="fetchPlugins()" class="container mx-auto flex">
@@ -55,7 +57,7 @@
         <!-- Table Section -->
         <div class="w-3/4 p-6">
             <h1 class="text-2xl font-bold mb-6">Plugin Examples</h1>
-            <table class="min-w-full bg-white shadow-md rounded mb-4">
+            <table class="min-w-full bg-white shadow-md rounded">
                 <thead>
                     <tr>
                         <th class="py-2 px-4 border-b">Name</th>
@@ -81,53 +83,5 @@
             </table>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('pluginData', () => ({
-                plugins: [],
-                selectedCategories: [],
-                selectedPaid: '',
-                selectedVersions: [],
-                fetchPlugins() {
-                    fetch('data/links.json')
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            this.plugins = data;
-                        })
-                        .catch(error => {
-                            console.error('There was a problem with the fetch operation:', error);
-                        });
-                },
-                get uniqueCategories() {
-                    const categories = new Set();
-                    this.plugins.forEach(plugin => {
-                        plugin.categories.forEach(category => categories.add(category));
-                    });
-                    return Array.from(categories);
-                },
-                get uniqueVersions() {
-                    const versions = new Set();
-                    this.plugins.forEach(plugin => {
-                        versions.add(plugin.version);
-                    });
-                    return Array.from(versions);
-                },
-                get filteredPlugins() {
-                    return this.plugins.filter(plugin => {
-                        const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.every(category => plugin.categories.includes(category));
-                        const matchesPaid = this.selectedPaid === '' || plugin.paid.toString() === this.selectedPaid;
-                        const matchesVersion = this.selectedVersions.length === 0 || this.selectedVersions.includes(plugin.version);
-                        return matchesCategory && matchesPaid && matchesVersion;
-                    });
-                }
-            }))
-        })
-    </script>
 </body>
 </html>

@@ -4,7 +4,6 @@ document.addEventListener('alpine:init', () => {
         selectedCategories: [],
         selectedPaid: '',
         selectedVersions: [],
-
         fetchPlugins() {
             fetch('data/links.json')
                 .then(response => {
@@ -14,14 +13,12 @@ document.addEventListener('alpine:init', () => {
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Plugins fetched:', data); // Debugging line
                     this.plugins = data;
                 })
                 .catch(error => {
-                    console.error('Fetch error:', error);
+                    console.error('There was a problem with the fetch operation:', error);
                 });
         },
-
         get uniqueCategories() {
             const categories = new Set();
             this.plugins.forEach(plugin => {
@@ -29,17 +26,13 @@ document.addEventListener('alpine:init', () => {
             });
             return Array.from(categories);
         },
-
         get uniqueVersions() {
             const versions = new Set();
             this.plugins.forEach(plugin => {
-                if (plugin.version) { // Check if version exists
-                    versions.add(plugin.version);
-                }
+                versions.add(plugin.version);
             });
             return Array.from(versions);
         },
-
         get filteredPlugins() {
             return this.plugins.filter(plugin => {
                 const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.every(category => plugin.categories.includes(category));
@@ -48,5 +41,5 @@ document.addEventListener('alpine:init', () => {
                 return matchesCategory && matchesPaid && matchesVersion;
             });
         }
-    }));
+    }))
 });
