@@ -12,6 +12,34 @@
 <body class="bg-gray-100 p-6">
     <div x-data="pluginData" x-init="fetchPlugins()" class="container mx-auto">
         <h1 class="text-2xl font-bold mb-6">Plugin Examples</h1>
+        
+        <!-- Filter Section -->
+        <div class="mb-6">
+            <div class="flex space-x-4">
+                <!-- Category Filter -->
+                <div>
+                    <label class="block font-medium mb-2">Filter by Category:</label>
+                    <select x-model="selectedCategory" class="border py-2 px-4 rounded">
+                        <option value="">All Categories</option>
+                        <template x-for="category in uniqueCategories" :key="category">
+                            <option x-text="category" :value="category"></option>
+                        </template>
+                    </select>
+                </div>
+
+                <!-- Paid Filter -->
+                <div>
+                    <label class="block font-medium mb-2">Filter by Paid Status:</label>
+                    <select x-model="selectedPaid" class="border py-2 px-4 rounded">
+                        <option value="">All</option>
+                        <option value="true">Paid</option>
+                        <option value="false">Not Paid</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
         <table class="min-w-full bg-white shadow-md rounded">
             <thead>
                 <tr>
@@ -23,7 +51,7 @@
                 </tr>
             </thead>
             <tbody>
-                <template x-for="plugin in plugins" :key="plugin.name">
+                <template x-for="plugin in filteredPlugins" :key="plugin.name">
                     <tr>
                         <td class="py-2 px-4 border-b" x-text="plugin.name"></td>
                         <td class="py-2 px-4 border-b"><a :href="plugin.url" class="text-blue-500 underline" x-text="plugin.url"></a></td>
@@ -40,6 +68,8 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('pluginData', () => ({
                 plugins: [],
+                selectedCategory: '',
+                selectedPaid: '',
                 fetchPlugins() {
                     fetch('data/links.json')
                         .then(response => {
@@ -54,6 +84,20 @@
                         .catch(error => {
                             console.error('There was a problem with the fetch operation:', error);
                         });
+                },
+                get uniqueCategories() {
+                    const categories = new Set();
+                    this.plugins.forEach(plugin => {
+                        plugin.categories.forEach(category => categories.add(category));
+                    });
+                    return Array.from(categories);
+                },
+                get filteredPlugins() {
+                    return this.plugins.filter(plugin => {
+                        const matchesCategory = this.selectedCategory === '' || plugin.categories.includes(this.selectedCategory);
+                        const matchesPaid = this.selectedPaid === '' || plugin.paid.toString() === this.selectedPaid;
+                        return matchesCategory && matchesPaid;
+                    });
                 }
             }))
         })
