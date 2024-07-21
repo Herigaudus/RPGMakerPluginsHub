@@ -2,15 +2,49 @@
     {
         "name": "Plugin Example 1",
         "url": "https://example.com/plugin1",
-        "description" : "lorem ipsum",
-        "paid" : true,
-        "categories": ["Combat", "Interface"]
+        "description": "Enhances combat mechanics.",
+        "paid": true,
+        "categories": ["Combat", "Interface"],
+        "version": "MZ"
     },
     {
         "name": "Plugin Example 2",
         "url": "https://example.com/plugin2",
-        "description" : "lorem ipsum",
-        "paid" : true,
-        "categories": ["Interface", "Audio"]
+        "description": "Adds new audio options.",
+        "paid": true,
+        "categories": ["Interface", "Audio"],
+        "version": "MV"
+    },
+    {
+        "name": "Plugin Example 3",
+        "url": "https://example.com/plugin3",
+        "description": "Improves character animations.",
+        "paid": false,
+        "categories": ["Animations", "Graphics"],
+        "version": "MZ"
+    },
+    {
+        "name": "Plugin Example 4",
+        "url": "https://example.com/plugin4",
+        "description": "Adds new graphical effects.",
+        "paid": false,
+        "categories": ["Graphics", "Interface"],
+        "version": "MV"
+    },
+    {
+        "name": "Plugin Example 5",
+        "url": "https://example.com/plugin5",
+        "description": "Enhances game interface.",
+        "paid": true,
+        "categories": ["Interface"],
+        "version": "MZ"
+    },
+    {
+        "name": "Plugin Example 6",
+        "url": "https://example.com/plugin6",
+        "description": "Adds new combat mechanics.",
+        "paid": false,
+        "categories": ["Combat"],
+        "version": "MV"
     }
 ]
