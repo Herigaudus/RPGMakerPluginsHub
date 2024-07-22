@@ -1,0 +1,15 @@
+{
+  "name": "rpgmakerpluginshub",
+  "version": "1.0.0",
+  "description": "Explore and filter a wide range of RPG Maker plugins to enhance your game development experience.",
+  "main": "index.html",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./src/input.css -o css/rpgmakerpluginshub.min.css --minify",
+    "watch:css": "npx tailwindcss -i ./src/input.css -o css/rpgmakerpluginshub.css --watch"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.4.6"
+  },
+  "author": "Herigaudus",
+  "license": "MIT"
+}

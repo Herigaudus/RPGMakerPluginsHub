@@ -5,7 +5,8 @@
         "description": "Enhances combat mechanics.",
         "paid": true,
         "categories": ["Combat", "Interface"],
-        "version": "MZ"
+        "version": ["MZ", "MV"],
+        "language": ["japanese", "english"]
     },
     {
         "name": "Plugin Example 2",
@@ -13,7 +14,8 @@
         "description": "Adds new audio options.",
         "paid": true,
         "categories": ["Interface", "Audio"],
-        "version": "MV"
+        "version": ["MV"],
+        "language": ["english"]
     },
     {
         "name": "Plugin Example 3",
@@ -21,7 +23,8 @@
         "description": "Improves character animations.",
         "paid": false,
         "categories": ["Animations", "Graphics"],
-        "version": "MZ"
+        "version": ["MZ"],
+        "language": ["english"]
     },
     {
         "name": "Plugin Example 4",
@@ -29,7 +32,8 @@
         "description": "Adds new graphical effects.",
         "paid": false,
         "categories": ["Graphics", "Interface"],
-        "version": "MV"
+        "version": ["MV"],
+        "language": ["japanese"]
     },
     {
         "name": "Plugin Example 5",
@@ -37,7 +41,8 @@
         "description": "Enhances game interface.",
         "paid": true,
         "categories": ["Interface"],
-        "version": "MZ"
+        "version": ["MZ"],
+        "language": ["english"]
     },
     {
         "name": "Plugin Example 6",
@@ -45,6 +50,133 @@
         "description": "Adds new combat mechanics.",
         "paid": false,
         "categories": ["Combat"],
-        "version": "MV"
+        "version": ["MV"],
+        "language": ["japanese"]
+    },
+    {
+        "name": "Plugin Example 7",
+        "url": "https://example.com/plugin7",
+        "description": "Enhances UI features.",
+        "paid": true,
+        "categories": ["UI"],
+        "version": ["MZ", "MV"],
+        "language": ["english", "french"]
+    },
+    {
+        "name": "Plugin Example 8",
+        "url": "https://example.com/plugin8",
+        "description": "New battle system.",
+        "paid": true,
+        "categories": ["Battle"],
+        "version": ["MV"],
+        "language": ["english"]
+    },
+    {
+        "name": "Plugin Example 9",
+        "url": "https://example.com/plugin9",
+        "description": "New game modes.",
+        "paid": false,
+        "categories": ["Game Modes"],
+        "version": ["MZ"],
+        "language": ["french"]
+    },
+    {
+        "name": "Plugin Example 10",
+        "url": "https://example.com/plugin10",
+        "description": "Improves sound effects.",
+        "paid": false,
+        "categories": ["Audio"],
+        "version": ["MV"],
+        "language": ["english"]
+    },
+    {
+        "name": "Plugin Example 11",
+        "url": "https://example.com/plugin11",
+        "description": "Adds new quests.",
+        "paid": true,
+        "categories": ["Quests"],
+        "version": ["MZ"],
+        "language": ["japanese"]
+    },
+    {
+        "name": "Plugin Example 12",
+        "url": "https://example.com/plugin12",
+        "description": "New items and inventory.",
+        "paid": false,
+        "categories": ["Items"],
+        "version": ["MV"],
+        "language": ["english"]
+    },
+    {
+        "name": "Plugin Example 13",
+        "url": "https://example.com/plugin13",
+        "description": "Improves character stats.",
+        "paid": true,
+        "categories": ["Stats"],
+        "version": ["MZ"],
+        "language": ["french"]
+    },
+    {
+        "name": "Plugin Example 14",
+        "url": "https://example.com/plugin14",
+        "description": "Adds new enemies.",
+        "paid": true,
+        "categories": ["Enemies"],
+        "version": ["MV"],
+        "language": ["english"]
+    },
+    {
+        "name": "Plugin Example 15",
+        "url": "https://example.com/plugin15",
+        "description": "Enhances lighting effects.",
+        "paid": false,
+        "categories": ["Lighting"],
+        "version": ["MZ"],
+        "language": ["japanese"]
+    },
+    {
+        "name": "Plugin Example 16",
+        "url": "https://example.com/plugin16",
+        "description": "New dialogue options.",
+        "paid": true,
+        "categories": ["Dialogue"],
+        "version": ["MV"],
+        "language": ["english", "french"]
+    },
+    {
+        "name": "Plugin Example 17",
+        "url": "https://example.com/plugin17",
+        "description": "Adds new backgrounds.",
+        "paid": false,
+        "categories": ["Backgrounds"],
+        "version": ["MZ"],
+        "language": ["french"]
+    },
+    {
+        "name": "Plugin Example 18",
+        "url": "https://example.com/plugin18",
+        "description": "Improves character customization.",
+        "paid": true,
+        "categories": ["Customization"],
+        "version": ["MV"],
+        "language": ["english"]
+    },
+    {
+        "name": "Plugin Example 19",
+        "url": "https://example.com/plugin19",
+        "description": "New animations for characters.",
+        "paid": false,
+        "categories": ["Animations"],
+        "version": ["MZ"],
+        "language": ["japanese"]
+    },
+    {
+        "name": "Plugin Example 20",
+        "url": "https://example.com/plugin20",
+        "description": "Adds new game mechanics.",
+        "paid": true,
+        "categories": ["Mechanics"],
+        "version": ["MV"],
+        "language": ["english", "french"]
     }
 ]

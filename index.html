@@ -5,35 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plugin Examples</title>
     <!-- Tailwind CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Alpine.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.5.1/dist/cdn.min.js" defer></script>
+    <link href="css/rpgmakerpluginshub.css" rel="stylesheet">
+    <!-- Vue.js CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <!-- Custom JavaScript -->
     <script src="js/app.js" defer></script>
 </head>
-<body class="bg-gray-100 p-6">
-    <div x-data="pluginData" x-init="fetchPlugins()" class="container mx-auto flex">
+<body class="bg-gray-100 p-6 font-sans">
+    <!-- Header Section -->
+    <header class="bg-white rounded p-6 mb-6">
+        <h1 class="text-3xl font-bold mb-2">RPGMaker Plugins Hub</h1>
+        <p class="text-gray-600">Explore and filter a wide range of RPG Maker plugins to enhance your game development experience.</p>
+    </header>
+
+    <div id="app" class="flex">
         <!-- Filter Section -->
-        <div class="w-1/4 p-6 bg-white shadow-md rounded">
-            <h1 class="text-xl font-bold mb-6">Filters</h1>
-            
-            <!-- Category Filter -->
-            <div class="mb-6">
-                <label class="block font-medium mb-2">Filter by Categories:</label>
-                <div class="flex flex-wrap space-x-4">
-                    <template x-for="category in uniqueCategories" :key="category">
-                        <div>
-                            <input type="checkbox" :id="category" :value="category" x-model="selectedCategories" class="mr-2">
-                            <label :for="category" x-text="category"></label>
-                        </div>
-                    </template>
-                </div>
-            </div>
+        <div class="w-3/12 p-6 bg-white rounded">
+            <h2 class="text-xl font-bold mb-6">Filters</h2>
 
             <!-- Paid Filter -->
             <div class="mb-6">
                 <label class="block font-medium mb-2">Filter by Paid Status:</label>
-                <select x-model="selectedPaid" class="border py-2 px-4 rounded w-full">
+                <select v-model="selectedPaid" class="border border-gray-300 bg-white py-2 px-4 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full text-gray-700">
                     <option value="">All</option>
                     <option value="true">Paid</option>
                     <option value="false">Not Paid</option>
@@ -41,23 +34,45 @@
             </div>
 
             <!-- Version Filter -->
-            <div>
+            <div class="mb-6">
                 <label class="block font-medium mb-2">Filter by RPG Maker Version:</label>
                 <div class="flex flex-wrap space-x-4">
-                    <template x-for="version in uniqueVersions" :key="version">
-                        <div>
-                            <input type="checkbox" :id="version" :value="version" x-model="selectedVersions" class="mr-2">
-                            <label :for="version" x-text="version"></label>
-                        </div>
-                    </template>
+                    <div v-for="version in uniqueVersions" :key="version" class="flex items-center">
+                        <input type="checkbox" :id="version" :value="version" v-model="selectedVersions" class="mr-2">
+                        <div :class="nameToClass('version', version)" class="w-8 h-8 bg-contain bg-no-repeat bg-center inline-block"></div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Language Filter -->
+            <div class="mb-6">
+                <label class="block font-medium mb-2">Filter by Language:</label>
+                <div class="flex flex-wrap space-x-4">
+                    <div v-for="language in uniqueLanguages" :key="language">
+                        <input type="checkbox" :id="language" :value="language" v-model="selectedLanguages" class="mr-2">
+                        <label :for="language">{{ language }}</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div>
+                <label class="block font-medium mb-2">Filter by Categories:</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="flex items-center mb-1" v-for="category in uniqueCategories" :key="category">
+                        <input type="checkbox" :id="category" :value="category" v-model="selectedCategories" class="mr-1">
+                        <label class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset" :for="category" :class="nameToClass('color', category)">
+                            {{ category }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+                        
         </div>
 
         <!-- Table Section -->
-        <div class="w-3/4 p-6">
-            <h1 class="text-2xl font-bold mb-6">RPGMakerPluginsHub</h1>
-            <table class="min-w-full bg-white shadow-md rounded">
+        <div class="w-9/12 pl-6">
+            <table class="min-w-full bg-white rounded">
                 <thead>
                     <tr>
                         <th class="py-2 px-4 border-b">Name</th>
@@ -69,18 +84,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template x-for="plugin in filteredPlugins" :key="plugin.name">
-                        <tr>
-                            <td class="py-2 px-4 border-b" x-text="plugin.name"></td>
-                            <td class="py-2 px-4 border-b"><a :href="plugin.url" class="text-blue-500 underline" x-text="plugin.url"></a></td>
-                            <td class="py-2 px-4 border-b" x-text="plugin.description"></td>
-                            <td class="py-2 px-4 border-b" x-text="plugin.paid ? 'Yes' : 'No'"></td>
-                            <td class="py-2 px-4 border-b" x-text="plugin.categories.join(', ')"></td>
-                            <td class="py-2 px-4 border-b" x-text="plugin.version"></td>
-                        </tr>
-                    </template>
+                    <tr v-for="plugin in paginatedPlugins" :key="plugin.name">
+                        <td class="py-2 px-4 border-b">{{ plugin.name }}</td>
+                        <td class="py-2 px-4 border-b"><a :href="plugin.url" class="text-blue-500 underline">{{ plugin.url }}</a></td>
+                        <td class="py-2 px-4 border-b">{{ plugin.description }}</td>
+                        <td class="py-2 px-4 border-b">{{ plugin.paid ? 'Yes' : 'No' }}</td>
+                        <td class="py-2 px-4 border-b">
+                            <div class="inline-flex items-center mr-1 rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset" v-for="category in plugin.categories" :key="category" :class="nameToClass('color', category)">
+                                {{ category }}
+                            </div>
+                        </td>
+                        <td class="py-2 px-4 border-b">
+                            <div class="inline-flex items-center mr-1" v-for="version in plugin.version" :key="version">
+                                <div :class="nameToClass('version', version)" class="w-8 h-8 bg-contain bg-no-repeat bg-center inline-block"></div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+            
+            <!-- Pagination Controls -->
+            <div v-if="totalPages > 1" class="mt-6 flex justify-between">
+                <button @click="prevPage" :disabled="currentPage === 1" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Previous</button>
+                <span class="flex items-center">Page {{ currentPage }} of {{ totalPages }}</span>
+                <button @click="nextPage" :disabled="currentPage === totalPages" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Next</button>
+            </div>
         </div>
     </div>
 </body>

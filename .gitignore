@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# TailwindCSS output (si vous compilez le CSS dans un fichier spécifique)
+css/tailwind.css
+css/tailwind.min.css
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
+
+# Environment variables file
+.env
+
+# Build directories
+dist/
+build/
