@@ -81,6 +81,7 @@
                         <th class="py-2 px-4 border-b">Paid</th>
                         <th class="py-2 px-4 border-b">Categories</th>
                         <th class="py-2 px-4 border-b">Version</th>
+                        <th class="py-2 px-4 border-b">Language</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,6 +98,11 @@
                         <td class="py-2 px-4 border-b">
                             <div class="inline-flex items-center mr-1" v-for="version in plugin.version" :key="version">
                                 <div :class="nameToClass('version', version)" class="w-8 h-8 bg-contain bg-no-repeat bg-center inline-block"></div>
+                            </div>
+                        </td>
+                        <td class="py-2 px-4 border-b">
+                            <div class="inline-flex items-center mr-1 rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset color-default" v-for="language in plugin.language" :key="language">
+                                {{ language }}
                             </div>
                         </td>
                     </tr>

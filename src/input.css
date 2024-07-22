@@ -91,5 +91,11 @@
     background-image: url('/img/mz-mini-logo.png');
 }
 
-/* Add other versions as needed */
+
+.language-japanese{
+    @apply bg-gray-200 text-gray-800 ring-gray-400/20;
+}
+
+
+
 
