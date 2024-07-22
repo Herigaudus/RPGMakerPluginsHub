@@ -1,5 +1,4 @@
 console.log("app.js is loaded");
-
 const { createApp } = Vue;
 
 createApp({
@@ -10,11 +9,9 @@ createApp({
             selectedPaid: '',
             selectedVersions: [],
             selectedLanguages: [],
-
             uniqueCategories: [],
             uniqueVersions: [],
             uniqueLanguages: [],
-
             currentPage: 1,
             itemsPerPage: 10
         };
@@ -42,7 +39,7 @@ createApp({
     methods: {
         fetchPlugins() {
             console.log("Fetching plugins...");
-            fetch('data/links.json')
+            fetch('/data/links.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
