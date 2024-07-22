@@ -4,7 +4,12 @@ document.addEventListener('alpine:init', () => {
         selectedCategories: [],
         selectedPaid: '',
         selectedVersions: [],
+        
+        uniqueCategories: [],
+        uniqueVersions: [],
+
         fetchPlugins() {
+            console.log("Fetching plugins...");
             fetch('data/links.json')
                 .then(response => {
                     if (!response.ok) {
@@ -13,26 +18,32 @@ document.addEventListener('alpine:init', () => {
                     return response.json();
                 })
                 .then(data => {
+                    console.log("Plugins fetched:", data);
                     this.plugins = data;
+                    this.updateUniqueCategories();
+                    this.updateUniqueVersions();
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
                 });
         },
-        get uniqueCategories() {
+
+        updateUniqueCategories() {
             const categories = new Set();
             this.plugins.forEach(plugin => {
                 plugin.categories.forEach(category => categories.add(category));
             });
-            return Array.from(categories);
+            this.uniqueCategories = Array.from(categories);
         },
-        get uniqueVersions() {
+
+        updateUniqueVersions() {
             const versions = new Set();
             this.plugins.forEach(plugin => {
                 versions.add(plugin.version);
             });
-            return Array.from(versions);
+            this.uniqueVersions = Array.from(versions);
         },
+
         get filteredPlugins() {
             return this.plugins.filter(plugin => {
                 const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.every(category => plugin.categories.includes(category));
@@ -41,5 +52,5 @@ document.addEventListener('alpine:init', () => {
                 return matchesCategory && matchesPaid && matchesVersion;
             });
         }
-    }))
+    }));
 });
