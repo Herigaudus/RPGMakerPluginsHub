@@ -1,4 +1,6 @@
 document.addEventListener('alpine:init', () => {
+    console.log("Alpine.js initialized");
+
     Alpine.data('pluginData', () => ({
         plugins: [],
         selectedCategories: [],
@@ -34,6 +36,7 @@ document.addEventListener('alpine:init', () => {
                 plugin.categories.forEach(category => categories.add(category));
             });
             this.uniqueCategories = Array.from(categories);
+            console.log("Unique categories:", this.uniqueCategories);
         },
 
         updateUniqueVersions() {
@@ -42,9 +45,11 @@ document.addEventListener('alpine:init', () => {
                 versions.add(plugin.version);
             });
             this.uniqueVersions = Array.from(versions);
+            console.log("Unique versions:", this.uniqueVersions);
         },
 
         get filteredPlugins() {
+            console.log("Filtering plugins with categories:", this.selectedCategories, "paid:", this.selectedPaid, "versions:", this.selectedVersions);
             return this.plugins.filter(plugin => {
                 const matchesCategory = this.selectedCategories.length === 0 || this.selectedCategories.every(category => plugin.categories.includes(category));
                 const matchesPaid = this.selectedPaid === '' || plugin.paid.toString() === this.selectedPaid;
