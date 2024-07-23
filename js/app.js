@@ -39,9 +39,7 @@ createApp({
     methods: {
         fetchPlugins() {
             console.log("Fetching plugins...");
-            // Récupérer l'URL de la page actuelle
             const currentUrl = window.location.href;
-            // Créer le chemin complet vers le fichier JSON
             const filePath = new URL('data/links.json', currentUrl).href;
             console.log("Fetching file from:", filePath);
             fetch(filePath)
@@ -100,6 +98,10 @@ createApp({
             if (this.currentPage < this.totalPages) {
                 this.currentPage++;
             }
+        },
+        updateItemsPerPage(event) {
+            this.itemsPerPage = parseInt(event.target.value, 10);
+            this.currentPage = 1; // Réinitialiser à la première page lors du changement du nombre d'éléments par page
         }
     },
     mounted() {
