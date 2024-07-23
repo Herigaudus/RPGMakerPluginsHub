@@ -39,7 +39,7 @@ createApp({
     methods: {
         fetchPlugins() {
             console.log("Fetching plugins...");
-            fetch('/data/links.json')
+            fetch('data/links.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
