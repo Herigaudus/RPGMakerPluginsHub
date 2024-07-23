@@ -39,7 +39,12 @@ createApp({
     methods: {
         fetchPlugins() {
             console.log("Fetching plugins...");
-            fetch('data/links.json')
+            // Récupérer l'URL de la page actuelle
+            const currentUrl = window.location.href;
+            // Créer le chemin complet vers le fichier JSON
+            const filePath = new URL('data/links.json', currentUrl).href;
+            console.log("Fetching file from:", filePath);
+            fetch(filePath)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
